@@ -11,11 +11,35 @@ import javax.swing.JOptionPane;
 public class Function {
     
     public void cargar_archivo() {
+        String path = "test\\amazon.txt";
+        String contenido = leer_archivo(path);
+        
         
     }
     
-    public void leer_archivo() {
-        
+    public String leer_archivo(String path) {
+        String contenido_txt = "";
+        String line;
+        File file = new File(path);
+        try {
+            if (!file.exists()){
+                file.createNewFile();
+            } else {
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr);
+                while ((line = br.readLine()) != null) {
+                    if (!line.isEmpty()) {
+                        contenido_txt += line + "\n";
+                    }
+                }
+                br.close();
+                JOptionPane.showMessageDialog(null, "Lectura exitosa");
+              
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return contenido_txt;
     }
     
     public void guardar_archivo() {
