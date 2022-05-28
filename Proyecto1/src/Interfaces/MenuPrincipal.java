@@ -6,6 +6,7 @@
 package Interfaces;
 
 import Clases.Function;
+import Clases.MatrizAdyacencia;
 
 /**
  *
@@ -14,6 +15,7 @@ import Clases.Function;
 public class MenuPrincipal extends javax.swing.JFrame {
 
     Function func = new Function();
+    MatrizAdyacencia grafo;
     
     public MenuPrincipal() {
         initComponents();
@@ -42,7 +44,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Gestional_Almacen = new javax.swing.JButton();
         MostrarGrafo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        Mostrar = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -110,11 +112,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.add(Gestional_Almacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 160, 50));
 
         MostrarGrafo.setText("MOSTRAR GRAFO");
+        MostrarGrafo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarGrafoActionPerformed(evt);
+            }
+        });
         jPanel1.add(MostrarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 480, 170, 50));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        Mostrar.setColumns(20);
+        Mostrar.setRows(5);
+        jScrollPane1.setViewportView(Mostrar);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 390, 260));
 
@@ -153,7 +160,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
-        func.cargar_archivo();
+        this.grafo = func.cargar_archivo();
     }//GEN-LAST:event_CargarArchivoActionPerformed
 
     private void GuardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarDatosActionPerformed
@@ -172,6 +179,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void Gestional_AlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Gestional_AlmacenActionPerformed
         ManageStorage gestion = new ManageStorage();
     }//GEN-LAST:event_Gestional_AlmacenActionPerformed
+
+    private void MostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarGrafoActionPerformed
+        this.Mostrar.setText(grafo.ImprimirGrafo());
+    }//GEN-LAST:event_MostrarGrafoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,6 +224,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton CargarArchivo;
     private javax.swing.JButton Gestional_Almacen;
     private javax.swing.JButton GuardarDatos;
+    private javax.swing.JTextArea Mostrar;
     private javax.swing.JButton MostrarGrafo;
     private javax.swing.JButton RealizarPedido;
     private javax.swing.JButton Reporte;
@@ -221,7 +233,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }

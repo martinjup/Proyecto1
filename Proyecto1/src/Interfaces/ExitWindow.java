@@ -5,12 +5,11 @@
  */
 package Interfaces;
 
-/**
- *
- * @author Windows
- */
+import Clases.Function;
+
 public class ExitWindow extends javax.swing.JFrame {
 
+    Function func = new Function();
     public ExitWindow() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -34,31 +33,42 @@ public class ExitWindow extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         No.setText("NO");
-        jPanel3.add(No, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 100, 30));
+        No.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(No, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 100, 30));
 
         Si.setText("SI");
-        jPanel3.add(Si, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 100, 30));
+        Si.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SiActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Si, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 100, 30));
 
         jLabel2.setText("¿Desea guardar los cambios?");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 170, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 150));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_NoActionPerformed
+
+    private void SiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiActionPerformed
+        func.guardar_archivo();
+        System.exit(0);
+    }//GEN-LAST:event_SiActionPerformed
 
     /**
      * @param args the command line arguments
