@@ -10,14 +10,9 @@ import javax.swing.*;
 
 
 public class Function {
-    
-    public MatrizAdyacencia cargar_archivo() {
-        /*
-        No he hecho lo de fileChooser todavia
-        */
-        String path = "test\\amazon.txt";
-        String contenido = leer_archivo(path);
 
+    
+    public MatrizAdyacencia crear_matriz(String contenido) {
         String rutas = contenido.split("Rutas;\n")[1];
         String[] array_rutas = rutas.split("\n");
         String[][] array_rutas2 = new String[array_rutas.length][];
@@ -33,7 +28,6 @@ public class Function {
             if (!aux.contains(array_rutas2[i][1])){
                 aux += array_rutas2[i][1];
         }
-            
         }
         MatrizAdyacencia grafo = new MatrizAdyacencia(aux.split("").length);
         for (int i = 0; i<array_rutas2.length;i++) {
@@ -45,6 +39,48 @@ public class Function {
             grafo.AñadirRuta(ascii1, ascii2, peso);
         }
         return grafo;
+        
+    }
+     
+    public ListaAlmacenes crear_lista_inventario(String contenido) {
+        ListaAlmacenes lista_almacenes = new ListaAlmacenes();
+        
+        String inventario = contenido.split("Rutas;\n")[0];
+        inventario = inventario.replace("Almacenes;\n", "");
+        JOptionPane.showMessageDialog(null, inventario);
+        String[] almacenes = inventario.split(";");
+        
+        String[][] almacenes_split = new String[almacenes.length-1][2];
+
+        for (int i = 0; i < almacenes.length-1;i++) {
+            almacenes_split[i][0] = almacenes[i].split(":\n")[0];
+            almacenes_split[i][1] = almacenes[i].split(":\n")[1];
+        }
+        
+        String[][] items = new String[almacenes_split.length][];
+        
+        for (int i = 0; i < almacenes_split.length;i++) {
+            items[i] = almacenes_split[i][1].split("\n");
+        }
+        
+        JOptionPane.showMessageDialog(null, items);
+        
+        for (int i = 0; i < items.length;i++) {
+            ListaInventario lista_inventario = new ListaInventario();
+            String[][] aux = new String[items[i].length][2];
+            for (int j = 0; j<items[i].length;j++) {
+                aux[j][0] = items[i][j].split(",")[0];
+                aux[j][1] = items[i][j].split(",")[1];
+                String[] aux2 = new String[2];
+                aux2[0] = aux[j][0];
+                aux2[1] = aux[j][1];
+                lista_inventario.insertarPrincipio(aux2);
+            }
+            lista_almacenes.insertarPrincipio(almacenes_split[i][0], lista_inventario);
+        }
+        
+        JOptionPane.showMessageDialog(null, lista_almacenes.ImprimirAlmacenes());
+        return lista_almacenes;
     }
            
     

@@ -7,7 +7,14 @@ package Interfaces;
 
 import Clases.Function;
 import Clases.MatrizAdyacencia;
+import Clases.ListaAlmacenes;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import javax.swing.JOptionPane;
+import javax.swing.*;
 /**
  *
  * @author Windows
@@ -16,6 +23,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     Function func = new Function();
     MatrizAdyacencia grafo;
+    ListaAlmacenes lista_inventario;
     
     public MenuPrincipal() {
         initComponents();
@@ -160,7 +168,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
-        this.grafo = func.cargar_archivo();
+            /*
+        No he hecho lo de fileChooser todavia
+        */
+        String path = "test\\amazon.txt";
+        String contenido = func.leer_archivo(path);
+
+        this.grafo = func.crear_matriz(contenido);
+        this.lista_inventario = func.crear_lista_inventario(contenido);
+        
     }//GEN-LAST:event_CargarArchivoActionPerformed
 
     private void GuardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarDatosActionPerformed
