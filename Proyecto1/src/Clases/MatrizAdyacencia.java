@@ -24,4 +24,15 @@ public class MatrizAdyacencia {
         }
         return StrMatriz;
     }
+    
+    public void añadirAlmacen(){
+        int[][] temp = this.matriz;
+        int[][] nueva_matriz = new int[n+1][n+1];
+        for (int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                nueva_matriz[i][j] = temp[i][j];
+            }
+        }
+        
+    }
 }

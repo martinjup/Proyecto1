@@ -47,7 +47,6 @@ public class Function {
         
         String inventario = contenido.split("Rutas;\n")[0];
         inventario = inventario.replace("Almacenes;\n", "");
-        JOptionPane.showMessageDialog(null, inventario);
         String[] almacenes = inventario.split(";");
         
         String[][] almacenes_split = new String[almacenes.length-1][2];
@@ -63,7 +62,6 @@ public class Function {
             items[i] = almacenes_split[i][1].split("\n");
         }
         
-        JOptionPane.showMessageDialog(null, items);
         
         for (int i = 0; i < items.length;i++) {
             ListaInventario lista_inventario = new ListaInventario();
@@ -77,10 +75,9 @@ public class Function {
                 JOptionPane.showMessageDialog(null, aux2);
                 lista_inventario.insertarFinal(aux2);
             }
-            lista_almacenes.insertarFinal(almacenes_split[i][0], lista_inventario);
+            lista_almacenes.insertarFinal(almacenes_split[i][0].replace("Almacen ", ""), lista_inventario);
         }
         
-        JOptionPane.showMessageDialog(null, lista_almacenes.ImprimirAlmacenes());
         return lista_almacenes;
     }
            
@@ -116,7 +113,7 @@ public class Function {
     }
     
     public void guardar_archivo() {
-        
+        File file = new File("test//amazon.txt");
     }
     
     public void imprimir_inventario() {

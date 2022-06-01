@@ -72,4 +72,13 @@ public class ListaAlmacenes {
         }
         return str;
     }
+    
+    public NodoAlmacen getLast() {
+        NodoAlmacen pointer = cabeza;
+        while(pointer.getSiguiente() != null) {
+            pointer = pointer.getSiguiente();
+        }
+        
+        return pointer;
+    }
 }

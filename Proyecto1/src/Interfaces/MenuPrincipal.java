@@ -6,13 +6,16 @@
 package Interfaces;
 
 import Clases.Function;
+import Clases.Global;
 import Clases.MatrizAdyacencia;
 import Clases.ListaAlmacenes;
+
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import javax.swing.JOptionPane;
 import javax.swing.*;
 /**
@@ -193,14 +196,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
-            /*
-        No he hecho lo de fileChooser todavia
-        */
-        String path = "test\\amazon.txt";
-        String contenido = func.leer_archivo(path);
-
-        this.grafo = func.crear_matriz(contenido);
+        JFileChooser file = new JFileChooser();
+      file.setMultiSelectionEnabled(true);
+      file.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+      file.setFileHidingEnabled(false);
+      if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+         java.io.File f = file.getSelectedFile();
+         System.err.println(f.getPath());
+         String contenido = func.leer_archivo(f.getPath());
+         this.grafo = func.crear_matriz(contenido);
         this.lista_inventario = func.crear_lista_inventario(contenido);
+      }
         
     }//GEN-LAST:event_CargarArchivoActionPerformed
 
