@@ -74,9 +74,10 @@ public class Function {
                 String[] aux2 = new String[2];
                 aux2[0] = aux[j][0];
                 aux2[1] = aux[j][1];
-                lista_inventario.insertarPrincipio(aux2);
+                JOptionPane.showMessageDialog(null, aux2);
+                lista_inventario.insertarFinal(aux2);
             }
-            lista_almacenes.insertarPrincipio(almacenes_split[i][0], lista_inventario);
+            lista_almacenes.insertarFinal(almacenes_split[i][0], lista_inventario);
         }
         
         JOptionPane.showMessageDialog(null, lista_almacenes.ImprimirAlmacenes());

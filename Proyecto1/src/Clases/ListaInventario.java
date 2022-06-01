@@ -42,6 +42,20 @@ public class ListaInventario {
         length++;
     }
     
+    public void insertarFinal(String[] elemento) {
+        NodoItem nodo = new NodoItem(elemento);
+        if (estaVacia()) {
+            setCabeza(nodo);
+        } else {
+            NodoItem pointer = getCabeza();
+            while (pointer.getSiguiente() != null) {
+                pointer = pointer.getSiguiente();
+            }
+            pointer.setSiguiente(nodo);
+        }
+        length++;
+    }
+    
     public boolean estaVacia(){
             return getCabeza() == null;
         }

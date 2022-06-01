@@ -15,6 +15,7 @@ public class ExitWindow extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setResizable(false);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
     }
 
@@ -31,32 +32,44 @@ public class ExitWindow extends javax.swing.JFrame {
         No = new javax.swing.JButton();
         Si = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 51));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        No.setBackground(new java.awt.Color(255, 102, 102));
+        No.setForeground(new java.awt.Color(0, 0, 0));
         No.setText("NO");
         No.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NoActionPerformed(evt);
             }
         });
-        jPanel3.add(No, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 100, 30));
+        jPanel3.add(No, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 100, 30));
 
+        Si.setBackground(new java.awt.Color(255, 102, 102));
+        Si.setForeground(new java.awt.Color(0, 0, 0));
         Si.setText("SI");
         Si.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SiActionPerformed(evt);
             }
         });
-        jPanel3.add(Si, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 100, 30));
+        jPanel3.add(Si, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 100, 30));
 
+        jLabel2.setBackground(new java.awt.Color(255, 255, 51));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("¿Desea guardar los cambios?");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 170, -1));
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 190, -1));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 150));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 280, 140));
+
+        jPanel1.setBackground(new java.awt.Color(204, 0, 0));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 160));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -124,6 +137,7 @@ public class ExitWindow extends javax.swing.JFrame {
     private javax.swing.JButton No;
     private javax.swing.JButton Si;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -44,6 +44,20 @@ public class ListaAlmacenes {
         length++;
     }
     
+    public void insertarFinal(String nombre, ListaInventario lista) {
+        NodoAlmacen nodo = new NodoAlmacen(nombre, lista);
+        if (estaVacia()) {
+            setCabeza(nodo);
+        } else {
+            NodoAlmacen pointer = getCabeza();
+            while (pointer.getSiguiente() != null) {
+                pointer = pointer.getSiguiente();
+            }
+            pointer.setSiguiente(nodo);
+        }
+        length++;
+    }
+    
     public boolean estaVacia(){
             return getCabeza() == null;
         }
@@ -51,7 +65,7 @@ public class ListaAlmacenes {
     public String ImprimirAlmacenes() {
         String str = "";
         NodoAlmacen pointer = getCabeza();
-        while (pointer.getSiguiente() != null) {
+        while (pointer != null) {
             str += pointer.getListaItems();
             pointer = pointer.getSiguiente();
             
