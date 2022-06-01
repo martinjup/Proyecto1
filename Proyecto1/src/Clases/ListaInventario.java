@@ -64,7 +64,7 @@ public class ListaInventario {
         String str = "";
         NodoItem pointer = cabeza;
         while (pointer != null) {
-            str += pointer.getItems() + "\n";
+            str += pointer.getItems();
             pointer = pointer.getSiguiente();
         }
         return str;

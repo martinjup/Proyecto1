@@ -10,6 +10,23 @@ public class MatrizAdyacencia {
         this.n = n;
         this.matriz = new int[n][n];
     }
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
+
+    public int[][] getMatriz() {
+        return matriz;
+    }
+
+    public void setMatriz(int[][] matriz) {
+        this.matriz = matriz;
+    }
+    
     
     public void AñadirRuta(int i, int j, int peso) {
         this.matriz[i][j] = peso;
@@ -34,5 +51,17 @@ public class MatrizAdyacencia {
             }
         }
         
+    }
+    
+    public String ImprimirRutas(){
+        String Str = "";
+        for (int i = 0; i<n;i++) {
+            for (int j = 0; j<n;j++) {
+                if (matriz[i][j] != 0) {
+                    Str += Global.getLista_almacenes().findName(i)+","+ Global.getLista_almacenes().findName(j) + "," + Integer.toString(matriz[i][j]) +"\n";
+                }
+        }
+        }
+        return Str;
     }
 }

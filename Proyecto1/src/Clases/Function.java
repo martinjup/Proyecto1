@@ -72,10 +72,9 @@ public class Function {
                 String[] aux2 = new String[2];
                 aux2[0] = aux[j][0];
                 aux2[1] = aux[j][1];
-                JOptionPane.showMessageDialog(null, aux2);
                 lista_inventario.insertarFinal(aux2);
             }
-            lista_almacenes.insertarFinal(almacenes_split[i][0].replace("Almacen ", ""), lista_inventario);
+            lista_almacenes.insertarFinal(almacenes_split[i][0].replace("Almacen ", "").replace("\n", ""), lista_inventario);
         }
         
         return lista_almacenes;

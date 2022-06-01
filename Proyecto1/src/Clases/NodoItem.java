@@ -18,7 +18,7 @@ public class NodoItem {
 
     public String getItems() {
         String str = "";
-        str += items[0] + ": " + items[1];
+        str +="\n"+ items[0] + "," + items[1];
         return str;
     }
 

@@ -67,6 +67,7 @@ public class ListaAlmacenes {
         NodoAlmacen pointer = getCabeza();
         while (pointer != null) {
             str += pointer.getListaItems();
+            str += ";";
             pointer = pointer.getSiguiente();
             
         }
@@ -80,5 +81,15 @@ public class ListaAlmacenes {
         }
         
         return pointer;
+    }
+    
+    public String findName(int pos) {
+        int count = 0;
+        NodoAlmacen pointer = cabeza;
+        while (count<pos) {
+            pointer = pointer.getSiguiente();
+            count++;
+        }
+        return pointer.getNombre();
     }
 }

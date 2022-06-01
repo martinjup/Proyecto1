@@ -204,14 +204,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
          java.io.File f = file.getSelectedFile();
          System.err.println(f.getPath());
          String contenido = func.leer_archivo(f.getPath());
-         this.grafo = func.crear_matriz(contenido);
+        this.grafo = func.crear_matriz(contenido);
+        Global.setMatriz(grafo);
         this.lista_inventario = func.crear_lista_inventario(contenido);
+        Global.setLista_almacenes(lista_inventario);
       }
         
     }//GEN-LAST:event_CargarArchivoActionPerformed
 
     private void GuardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarDatosActionPerformed
-        func.guardar_archivo();
+        String contenido = "";
+        contenido += "Almacenes;";
+        contenido += Global.getLista_almacenes().ImprimirAlmacenes();
+        contenido += "\nRutas;\n";
+        contenido += Global.getMatriz().ImprimirRutas();
+        
+                
+        JOptionPane.showMessageDialog(null, contenido);
     }//GEN-LAST:event_GuardarDatosActionPerformed
 
     private void ReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteActionPerformed

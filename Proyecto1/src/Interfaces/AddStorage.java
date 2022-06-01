@@ -37,7 +37,7 @@ public class AddStorage extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        Route = new javax.swing.JTextField();
+        route = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         AddRoute = new javax.swing.JButton();
         Salir = new javax.swing.JButton();
@@ -53,12 +53,12 @@ public class AddStorage extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 102));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Route.addActionListener(new java.awt.event.ActionListener() {
+        route.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RouteActionPerformed(evt);
+                routeActionPerformed(evt);
             }
         });
-        jPanel2.add(Route, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 220, -1));
+        jPanel2.add(route, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 220, -1));
 
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
         jLabel1.setText("Ingrese las conecciones de este almacen");
@@ -100,16 +100,18 @@ public class AddStorage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void RouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RouteActionPerformed
+    private void routeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_RouteActionPerformed
+    }//GEN-LAST:event_routeActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SalirActionPerformed
 
     private void AddRouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddRouteActionPerformed
-        ListaAlmacenes lista = Global.getLista_almacenes();
+
+        MatrizAdyacencia matriz = Global.getMatriz();
+        String Route = route.getText();
         
     }//GEN-LAST:event_AddRouteActionPerformed
 
@@ -150,12 +152,12 @@ public class AddStorage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddRoute;
-    private javax.swing.JTextField Route;
     private javax.swing.JButton Salir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField route;
     // End of variables declaration//GEN-END:variables
 }

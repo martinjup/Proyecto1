@@ -27,7 +27,7 @@ public class NodoAlmacen {
     
 
     public String getListaItems() {
-        String Str = "Almacen "+nombre+":\n" + this.ListaItems.ImprimirItems(); 
+        String Str = "\nAlmacen "+nombre+":" + this.ListaItems.ImprimirItems(); 
         return Str;
     }
 
