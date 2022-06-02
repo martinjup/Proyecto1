@@ -237,7 +237,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_Gestional_AlmacenActionPerformed
 
     private void MostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarGrafoActionPerformed
-        this.Mostrar.setText(grafo.ImprimirGrafo());
+        Mostrar.setText(Global.getMatriz().ImprimirGrafo());
     }//GEN-LAST:event_MostrarGrafoActionPerformed
 
     /**
