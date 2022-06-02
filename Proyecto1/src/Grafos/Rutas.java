@@ -9,7 +9,7 @@ public class Rutas {
         this.adj = new int[n][n];
     }
 
-    //Is a direccional graph
+    //es un grafo direccional
 
     public void addEdge(int v, int w, int weight) {
         this.adj[v][w] = weight;
