@@ -9,6 +9,12 @@ import Clases.Function;
 import Clases.Global;
 import Clases.MatrizAdyacencia;
 import Clases.ListaAlmacenes;
+import Grafos.Archivos;
+import Grafos.Rutas;
+import Grafos.almacen;
+import Grafos.graph;
+import Grafos.node;
+
 
 
 import java.io.BufferedReader;
@@ -18,6 +24,8 @@ import java.io.PrintWriter;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.awt.Color;
 /**
  *
  * @author Windows
@@ -27,6 +35,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     Function func = new Function();
     MatrizAdyacencia grafo;
     ListaAlmacenes lista_inventario;
+    Rutas matriz;
+    ArrayList<almacen> almacenes;
     
     public MenuPrincipal() {
         initComponents();
@@ -53,6 +63,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 Global.setLista_almacenes(lista_inventario);
                 grafo = func.crear_matriz(contenido);
                 Global.setMatriz(grafo);
+                
+                Archivos fh = new Archivos();
+        
+                ArrayList<Object> retorno = fh.readFile(file.getAbsolutePath());
+                ArrayList<almacen> almacenes = (ArrayList) retorno.get(0);
+                Rutas Matrix = (Rutas) retorno.get(1);
+
+                this.almacenes = almacenes;
+                this.matriz = Matrix;
                 }
             } catch(Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos guardados");
@@ -81,9 +100,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         MostrarGrafo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Mostrar = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -173,23 +192,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jPanel1.add(MostrarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 480, 170, 50));
 
+        Mostrar.setBackground(new java.awt.Color(153, 255, 255));
         Mostrar.setColumns(20);
+        Mostrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Mostrar.setForeground(new java.awt.Color(0, 0, 0));
         Mostrar.setRows(5);
         jScrollPane1.setViewportView(Mostrar);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 390, 260));
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 360, 260));
-
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
         jLabel1.setText("Los Pollos Hermanos");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 430, 80));
+        jLabel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 0)), null));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 430, 80));
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("Matriz de Adyacencia");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, 160, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Icono.jpg"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 280, 280));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 823, 570));
 
@@ -232,12 +257,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
       file.setFileHidingEnabled(false);
       if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
          java.io.File f = file.getSelectedFile();
-         System.err.println(f.getPath());
          String contenido = func.leer_archivo(f.getPath());
         lista_inventario = func.crear_lista_inventario(contenido);
         Global.setLista_almacenes(lista_inventario);
         grafo = func.crear_matriz(contenido);
         Global.setMatriz(grafo);
+        
+        Archivos fh = new Archivos();
+        
+        ArrayList<Object> retorno = fh.readFile(file.getSelectedFile().getAbsolutePath());
+        ArrayList<almacen> almacenes = (ArrayList) retorno.get(0);
+        Rutas Matrix = (Rutas) retorno.get(1);
+        
+        this.almacenes = almacenes;
+        this.matriz = Matrix;
       }
         
     }//GEN-LAST:event_CargarArchivoActionPerformed
@@ -290,6 +323,31 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void MostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarGrafoActionPerformed
         if(Global.getMatriz() != null){
             Mostrar.setText(Global.getMatriz().ImprimirGrafo());
+            JFrame frame = new JFrame("Grafo");
+            ArrayList<node> nodos = new ArrayList<>();
+            ArrayList<Color> colores = new ArrayList<>();
+
+            for(int i = 0; i < almacenes.size(); i++){
+                colores.add(new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
+            }
+
+
+
+            for(int i=0; i<almacenes.size();i++){
+                node vertex = new node();
+                //Se distrbuyen los vertices con la funcion seno, la cantidad de almacenes e i
+                String aux = Character.toString(vertex.convert(i));
+                
+                vertex.setValues( (int) (250+ 200*(Math.cos((2*Math.PI/almacenes.size())*i) )),(int) (250+ 200*(Math.sin((2*Math.PI/almacenes.size())*i))), 50, colores.get(i),aux);
+                nodos.add(vertex);
+                
+            }
+            frame.setVisible(true);
+            frame.setSize(500,500);
+            
+            graph g = new graph(nodos,this.matriz);
+
+            frame.add(g);
         } else {
             JOptionPane.showMessageDialog(null, "No hay un grafo guardado");
         }
@@ -341,10 +399,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton Reporte;
     private javax.swing.JButton Salir;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }
