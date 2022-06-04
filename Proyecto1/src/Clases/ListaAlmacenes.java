@@ -92,4 +92,48 @@ public class ListaAlmacenes {
         }
         return pointer.getNombre();
     }
+    
+    public int findPosition(String name) {
+        NodoAlmacen pointer = cabeza;
+        int count = 0;
+        while (pointer != null) {
+            if (pointer.getNombre().equals(name)){
+                break;
+            }
+            pointer = pointer.getSiguiente();
+            count++;
+        }
+        return count;
+    }
+    
+    public boolean nameExists(String name) {
+        boolean exists = false;
+        NodoAlmacen pointer = cabeza;
+        while(pointer != null) {
+            if (pointer.getNombre().equals(name)){
+                exists = true;
+            }
+            pointer = pointer.getSiguiente();
+            
+        }
+        return exists;
+    }
+    
+    public NodoAlmacen findNodo(int pos) {
+        int count = 0;
+        NodoAlmacen pointer = cabeza;
+        while (count<pos) {
+            pointer = pointer.getSiguiente();
+            count++;
+        }
+        return pointer;
+    }
+    
+    public void ResetVisits() {
+        NodoAlmacen pointer = cabeza;
+        for (int i = 0; i<length;i++){
+            pointer.setVisitado(false);
+            pointer = pointer.getSiguiente();
+        }
+    }
 }

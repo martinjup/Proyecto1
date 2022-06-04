@@ -10,11 +10,21 @@ public class NodoAlmacen {
     private String nombre;
     private ListaInventario ListaItems;
     private NodoAlmacen siguiente;
+    private boolean visitado;
     
     public NodoAlmacen(String nombre, ListaInventario lista) {
         this.nombre = nombre;
         this.ListaItems = lista;
         this.siguiente = null;
+        this.visitado = false;
+    }
+
+    public boolean Visitado() {
+        return visitado;
+    }
+
+    public void setVisitado(boolean visitado) {
+        this.visitado = visitado;
     }
 
     public String getNombre() {
@@ -27,8 +37,14 @@ public class NodoAlmacen {
     
 
     public String getListaItems() {
-        String Str = "\nAlmacen "+nombre+":" + this.ListaItems.ImprimirItems(); 
+        String Str = "";
+        try{
+            Str = "\nAlmacen "+nombre+":" + this.ListaItems.ImprimirItems(); 
         return Str;
+        } catch (Exception e) {
+            Str = "\nAlmacen "+nombre+":\n"; 
+            return Str;
+        }
     }
 
     public void setListaItems(ListaInventario ListaItems) {

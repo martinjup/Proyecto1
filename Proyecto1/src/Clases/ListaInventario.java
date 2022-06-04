@@ -5,6 +5,8 @@
  */
 package Clases;
 
+import javax.swing.JOptionPane;
+
 
 public class ListaInventario {
     private NodoItem cabeza;
@@ -64,7 +66,11 @@ public class ListaInventario {
         String str = "";
         NodoItem pointer = cabeza;
         while (pointer != null) {
+            if (pointer.getItems() != null){
             str += pointer.getItems();
+            } else{
+                JOptionPane.showMessageDialog(null, pointer.getItems()+"a");
+            }
             pointer = pointer.getSiguiente();
         }
         return str;

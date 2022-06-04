@@ -19,7 +19,7 @@ public class MatrizAdyacencia {
         this.n = n;
     }
 
-    public int[][] getMatriz() {
+    public int[][] get_Matriz() {
         return matriz;
     }
 
@@ -63,5 +63,53 @@ public class MatrizAdyacencia {
         }
         }
         return Str;
+    }
+    
+    public void VaciarFila(int x) {
+        for (int i = 0; i<n;i++){
+            matriz[x][i] = 0;
+        }
+    }
+    
+    public void VaciarColumna(int x) {
+        for (int i = 0; i<n;i++){
+            matriz[i][x] = 0;
+        }
+    }
+    
+    public boolean EstaVacia(){
+        boolean vacia = true;
+        for (int i = 0; i<n; i++) {
+            for (int j = 0; j<n; j++) {
+                if(matriz[i][j] == 0){
+                    vacia = false;
+                }
+        }
+        }
+        return vacia;
+    }
+    
+    public boolean FilaVacia(int fila){
+        boolean vacia = true;
+        for (int j = 0; j<n; j++) {
+            if (matriz[fila][j] != 0){
+                vacia = false;
+            }
+        }
+        return vacia;
+    }
+    
+    public boolean ColumnaVacia(int columna){
+        boolean vacia = true;
+        for (int i = 0; i<n; i++) {
+            if (matriz[i][columna] != 0){
+                vacia = false;
+            }
+        }
+        return vacia;
+    }
+    
+    public void setNodo(int i, int j, int peso) {
+        matriz[i][j] = peso;
     }
 }

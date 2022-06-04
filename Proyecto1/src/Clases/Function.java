@@ -3,8 +3,11 @@ package Clases;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.*;
 
@@ -31,12 +34,10 @@ public class Function {
         }
         MatrizAdyacencia grafo = new MatrizAdyacencia(aux.split("").length);
         for (int i = 0; i<array_rutas2.length;i++) {
-            char char1 = array_rutas2[i][0].charAt(0);
-            int ascii1 = (int) char1 - 65;
-            char char2 = array_rutas2[i][1].charAt(0);
-            int ascii2 = (int) char2 - 65;
+            String str1 = array_rutas2[i][0];
+            String str2 = array_rutas2[i][1];
             int peso = Integer.parseInt(array_rutas2[i][2]);
-            grafo.AñadirRuta(ascii1, ascii2, peso);
+            grafo.AñadirRuta(Global.getLista_almacenes().findPosition(str1), Global.getLista_almacenes().findPosition(str2), peso);
         }
         return grafo;
         
@@ -59,13 +60,18 @@ public class Function {
         String[][] items = new String[almacenes_split.length][];
         
         for (int i = 0; i < almacenes_split.length;i++) {
+            if ("".equals(items[i])) {
+                items[i] = null;
+            } else{
             items[i] = almacenes_split[i][1].split("\n");
+            }
         }
         
         
         for (int i = 0; i < items.length;i++) {
             ListaInventario lista_inventario = new ListaInventario();
-            String[][] aux = new String[items[i].length][2];
+            if (items[i] != null){
+                String[][] aux = new String[items[i].length][2];
             for (int j = 0; j<items[i].length;j++) {
                 aux[j][0] = items[i][j].split(",")[0];
                 aux[j][1] = items[i][j].split(",")[1];
@@ -74,18 +80,16 @@ public class Function {
                 aux2[1] = aux[j][1];
                 lista_inventario.insertarFinal(aux2);
             }
+            
+            } else {
+                lista_inventario.insertarFinal(null);
+            }
             lista_almacenes.insertarFinal(almacenes_split[i][0].replace("Almacen ", "").replace("\n", ""), lista_inventario);
         }
         
         return lista_almacenes;
     }
            
-    
-        
-       
-    
-    
-   
     public String leer_archivo(String path) {
         String contenido_txt = "";
         String line;
@@ -106,41 +110,114 @@ public class Function {
               
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo");
         }
         return contenido_txt;
     }
     
-    public void guardar_archivo() {
-        File file = new File("test//amazon.txt");
-    }
-    
-    public void imprimir_inventario() {
+    public void guardar_archivo(String contenido) {
+        PrintWriter pw;
+        try {
+            pw = new PrintWriter("test\\amazon.txt");
+            pw.print(contenido);
+            pw.close();
+            JOptionPane.showMessageDialog(null, "Guardado exitoso!");
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al guardar los datos.");
+        }
         
     }
     
-    public void imprimir_productos() {
+    public String recorrido_en_profundidad(){
+        String str = "";
+        MatrizAdyacencia aux = new MatrizAdyacencia(Global.getMatriz().getN());
+        for(int i = 0; i<aux.getN();i++) {
+            for(int j = 0; j<aux.getN();j++) {
+                aux.setNodo(i, j, Global.getMatriz().get_Matriz()[i][j]);
+            }
+        }
         
+        int fila = 0;
+        int columna = 0;
+        for(int i = 0; i<aux.getN();i++){
+            for (int j = 0; j<Global.getMatriz().getN();j++){
+                if (aux.get_Matriz()[i][j]!= 0) {
+                    fila = i;
+                    columna = j;                    
+                    if (!Global.getLista_almacenes().findNodo(i).Visitado()){
+                        str += Global.getLista_almacenes().findNodo(i).getListaItems();
+                        str +="\n---------------------------\n";
+                        Global.getLista_almacenes().findNodo(i).setVisitado(true);
+                    }
+          
+                    aux.setNodo(i, j, 0);
+                    
+                    while(!aux.FilaVacia(fila) && !aux.ColumnaVacia(columna)){
+                        for (int k = 0; k<aux.getN();k++) {
+                            if(aux.get_Matriz()[k][columna] !=0){
+                                if (!Global.getLista_almacenes().findNodo(columna).Visitado()){
+                                    str += Global.getLista_almacenes().findNodo(columna).getListaItems();
+                                    str +="\n---------------------------\n";
+                                    Global.getLista_almacenes().findNodo(columna).setVisitado(true);
+                                    fila = k;
+                                    aux.setNodo(k, columna, 0);
+                                    break;
+                                } 
+                            }     
+                        }
+                        for (int k = 0; k<aux.getN();k++){
+                            if (aux.get_Matriz()[fila][k]!= 0){
+                                if (!Global.getLista_almacenes().findNodo(fila).Visitado()){
+                                    str += Global.getLista_almacenes().findNodo(fila).getListaItems();
+                                    str +="\n---------------------------\n";
+                                    Global.getLista_almacenes().findNodo(fila).setVisitado(true);
+                                    columna = k;
+                                    aux.setNodo(fila, k, 0);
+                                    break;
+                            }
+                        }
+                        }
+                        
+                    }
+                    if (aux.EstaVacia()){
+                        Global.getLista_almacenes().ResetVisits();
+                        return str;
+                    }
+                    
+
+            }
+            }
+        }
+        Global.getLista_almacenes().ResetVisits();
+        return str;
     }
     
-    public void realizar_pedido() {
-        
-    }
     
-    public void solicitar_productos() {
+    public String recorrido_por_anchura(){
+        String str = "";
+        MatrizAdyacencia aux = new MatrizAdyacencia(Global.getMatriz().getN());
+        for(int i = 0; i<aux.getN();i++) {
+            for(int j = 0; j<aux.getN();j++) {
+                aux.setNodo(i, j, Global.getMatriz().get_Matriz()[i][j]);
+            }
+        }
+        for(int i = 0; i<aux.getN();i++){
+            for(int j = 0; j<aux.getN();j++){
+                if (!Global.getLista_almacenes().findNodo(i).Visitado()){
+                    str += Global.getLista_almacenes().findNodo(i).getListaItems();
+                    str +="\n---------------------------\n";
+                    Global.getLista_almacenes().findNodo(i).setVisitado(true);}
+                if (aux.get_Matriz()[i][j] != 0){
+                    if (!Global.getLista_almacenes().findNodo(i).Visitado()){
+                    str += Global.getLista_almacenes().findNodo(i).getListaItems();
+                    str +="\n---------------------------\n";
+                    Global.getLista_almacenes().findNodo(i).setVisitado(true);}
+                }
+                    
+            }
+        }
         
-    }
-    
-    public void agregar_almacen() {
-        
-    }
-    
-    public void gestionar_almacen() {
-        
-    }
-    
-    public void mostrar_grafo() {
-        
+        return str;
     }
     
 }
