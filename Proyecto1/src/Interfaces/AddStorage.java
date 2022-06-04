@@ -10,12 +10,17 @@ import javax.swing.JOptionPane;
 import Clases.MatrizAdyacencia;
 import Clases.ListaAlmacenes;
 import Clases.Global;
+import Clases.Function;
 
 public class AddStorage extends javax.swing.JFrame {
 
     
     public AddStorage() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     AddStorage(MatrizAdyacencia matriz) {
@@ -39,10 +44,8 @@ public class AddStorage extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         route = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        AddRoute = new javax.swing.JButton();
+        AddStorage = new javax.swing.JButton();
         Salir = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -58,40 +61,32 @@ public class AddStorage extends javax.swing.JFrame {
                 routeActionPerformed(evt);
             }
         });
-        jPanel2.add(route, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 220, -1));
+        jPanel2.add(route, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 220, -1));
 
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel1.setText("Ingrese las conecciones de este almacen");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 230, 20));
+        jLabel1.setText("Ingrese el nombre de este almacen.");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 220, 20));
 
-        AddRoute.setBackground(new java.awt.Color(255, 102, 102));
-        AddRoute.setForeground(new java.awt.Color(0, 0, 0));
-        AddRoute.setText("Agregar Ruta");
-        AddRoute.addActionListener(new java.awt.event.ActionListener() {
+        AddStorage.setBackground(new java.awt.Color(255, 102, 102));
+        AddStorage.setForeground(new java.awt.Color(0, 0, 0));
+        AddStorage.setText("Nombrar");
+        AddStorage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddRouteActionPerformed(evt);
+                AddStorageActionPerformed(evt);
             }
         });
-        jPanel2.add(AddRoute, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 110, -1));
+        jPanel2.add(AddStorage, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 110, -1));
 
         Salir.setBackground(new java.awt.Color(255, 0, 0));
         Salir.setForeground(new java.awt.Color(0, 0, 0));
-        Salir.setText("Salir");
+        Salir.setText("X");
         Salir.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalirActionPerformed(evt);
             }
         });
-        jPanel2.add(Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 60, -1));
-
-        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setText(" con los demas por nombre. ");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 220, -1));
-
-        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel3.setText("Ejemplo: (A,B,20)");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, -1));
+        jPanel2.add(Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 50, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 290, 160));
 
@@ -105,15 +100,36 @@ public class AddStorage extends javax.swing.JFrame {
     }//GEN-LAST:event_routeActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_SalirActionPerformed
 
-    private void AddRouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddRouteActionPerformed
-
-        MatrizAdyacencia matriz = Global.getMatriz();
-        String Route = route.getText();
-        
-    }//GEN-LAST:event_AddRouteActionPerformed
+    private void AddStorageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStorageActionPerformed
+        if ("".equals(route.getText())){
+            JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre");
+        } else{
+            if (Global.getLista_almacenes().nameExists(route.getText())) {
+                JOptionPane.showMessageDialog(null, "Ya hay un almacen con ese nombre.");
+                route.setText("");
+            } else{
+                String Route = route.getText();
+                ListaAlmacenes lista = Global.getLista_almacenes();
+                lista.insertarFinal(Route, null);
+                Global.setLista_almacenes(lista);
+                MatrizAdyacencia matriz = new MatrizAdyacencia(Global.getMatriz().getN()+1);
+                int[][] aux = new int[Global.getMatriz().getN()+1][Global.getMatriz().getN()+1];
+                for (int i = 0; i<Global.getMatriz().getN();i++) {
+                    for (int j = 0; j<Global.getMatriz().getN();j++) {
+                        aux[i][j] = Global.getMatriz().get_Matriz()[i][j];
+                    }
+                }
+                matriz.setMatriz(aux);
+                Global.setMatriz(matriz);
+                JOptionPane.showMessageDialog(null, "Almacen creado con exito!");
+                AddRoutes ventana5 = new AddRoutes();
+                this.dispose();
+                }
+        }
+    }//GEN-LAST:event_AddStorageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,11 +167,9 @@ public class AddStorage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddRoute;
+    private javax.swing.JButton AddStorage;
     private javax.swing.JButton Salir;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField route;

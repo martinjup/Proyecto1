@@ -6,6 +6,8 @@
 package Interfaces;
 
 import Clases.Function;
+import Clases.Global;
+import javax.swing.JOptionPane;
 
 public class ExitWindow extends javax.swing.JFrame {
 
@@ -79,7 +81,13 @@ public class ExitWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_NoActionPerformed
 
     private void SiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiActionPerformed
-        func.guardar_archivo();
+        String contenido = "";
+        contenido += "Almacenes;";
+        contenido += Global.getLista_almacenes().ImprimirAlmacenes();
+        contenido += "\nRutas;\n";
+        contenido += Global.getMatriz().ImprimirRutas();
+        func.guardar_archivo(contenido);
+                
         System.exit(0);
     }//GEN-LAST:event_SiActionPerformed
 
