@@ -9,6 +9,11 @@ import Clases.Function;
 import Clases.Global;
 import Clases.MatrizAdyacencia;
 import Clases.ListaAlmacenes;
+import Grafos.Archivos;
+import Grafos.Rutas;
+import Grafos.almacen;
+import Grafos.graph;
+import Grafos.node;
 
 
 import java.io.BufferedReader;
@@ -18,6 +23,8 @@ import java.io.PrintWriter;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.awt.Color;
 /**
  *
  * @author Windows
@@ -27,6 +34,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     Function func = new Function();
     MatrizAdyacencia grafo;
     ListaAlmacenes lista_inventario;
+    Rutas matriz;
+    ArrayList<almacen> almacenes;
     
     public MenuPrincipal() {
         initComponents();
@@ -208,6 +217,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Global.setMatriz(grafo);
         this.lista_inventario = func.crear_lista_inventario(contenido);
         Global.setLista_almacenes(lista_inventario);
+        
+        Archivos fh = new Archivos();
+        
+        ArrayList<Object> retorno = fh.readFile(file.getSelectedFile().getAbsolutePath());
+        ArrayList<almacen> almacenes = (ArrayList) retorno.get(0);
+        Rutas Matrix = (Rutas) retorno.get(1);
+        
+        this.almacenes = almacenes;
+        this.matriz = Matrix;
       }
         
     }//GEN-LAST:event_CargarArchivoActionPerformed
@@ -237,7 +255,36 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_Gestional_AlmacenActionPerformed
 
     private void MostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarGrafoActionPerformed
-        Mostrar.setText(Global.getMatriz().ImprimirGrafo());
+        this.Mostrar.setText(grafo.ImprimirGrafo());
+
+            JFrame frame = new JFrame("Grafo");
+            ArrayList<node> nodos = new ArrayList<>();
+            ArrayList<Color> colores = new ArrayList<>();
+
+            for(int i = 0; i < almacenes.size(); i++){
+                colores.add(new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
+            }
+
+
+
+            for(int i=0; i<almacenes.size();i++){
+                node vertex = new node();
+                //Se distrbuyen los vertices con la funcion seno, la cantidad de almacenes e i
+                String aux = Character.toString(vertex.convert(i));
+                
+                vertex.setValues( (int) (250+ 200*(Math.cos((2*Math.PI/almacenes.size())*i) )),(int) (250+ 200*(Math.sin((2*Math.PI/almacenes.size())*i))), 50, colores.get(i),aux);
+                nodos.add(vertex);
+                
+            }
+            frame.setVisible(true);
+            frame.setSize(500,500);
+            
+            graph g = new graph(nodos,this.matriz);
+
+            frame.add(g);
+
+            
+        
     }//GEN-LAST:event_MostrarGrafoActionPerformed
 
     /**
