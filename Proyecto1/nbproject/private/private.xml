@@ -3,13 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Grafos/graph.java</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Interfaces/AddStorage.java</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Clases/NodoItem.java</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Interfaces/ProductReport.java</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Interfaces/MenuPrincipal.java</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Clases/ListaAlmacenes.java</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Interfaces/ExitWindow.java</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Clases/NodoAlmacen.java</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Interfaces/AddRoutes.java</file>
             <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Clases/ListaInventario.java</file>
             <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Clases/Global.java</file>
-            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Interfaces/MenuPrincipal.java</file>
-            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Grafos/node.java</file>
-            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Clases/ListaAlmacenes.java</file>
-            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Clases/NodoAlmacen.java</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/test/amazon.txt</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Interfaces/StorageName.java</file>
+            <file>file:/C:/Users/Windows/Documents/Unimet/Trimestre%20VI/Estructura%20de%20Datos/Proyecto1-main/Proyecto1/src/Clases/Function.java</file>
         </group>
     </open-files>
 </project-private>
