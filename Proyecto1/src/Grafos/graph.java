@@ -22,6 +22,7 @@ public class graph extends JPanel {
         for (int i = 0; i < nodes.size(); i++) {
             for (int j = 0; j < nodes.size(); j++) {
                 if (adj.getWeight(i, j) != 0) {
+                    g.drawString(adj.getWeight(i, j)+"",(nodes.get(i).getX()+ nodes.get(j).getX()-35)/2,(nodes.get(i).getY()+ nodes.get(j).getY()-35)/2 );
                     g.drawLine(nodes.get(i).getX(), nodes.get(i).getY(), nodes.get(j).getX(), nodes.get(j).getY());
                     int centerx = (nodes.get(i).getX() + nodes.get(j).getX()) / 2;
                     int centery = (nodes.get(i).getY() + nodes.get(j).getY()) / 2;
