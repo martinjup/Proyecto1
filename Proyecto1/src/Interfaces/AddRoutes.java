@@ -5,7 +5,13 @@
  */
 package Interfaces;
 import Clases.Global;
+import Grafos.Archivos;
+import Grafos.almacen;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
+
+
 /**
  *
  * @author Windows
@@ -15,12 +21,16 @@ public class AddRoutes extends javax.swing.JFrame {
     /**
      * Creates new form AddRoutes
      */
+    
+    int global_counter;
+    
     public AddRoutes() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setResizable(false);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        this.global_counter=0;
     }
 
     /**
@@ -106,10 +116,18 @@ public class AddRoutes extends javax.swing.JFrame {
                         try{
                             matriz_aux[Global.getLista_almacenes().findPosition(aux[0])][Global.getLista_almacenes().findPosition(aux[1])] = Integer.parseInt(aux[2]);
                             Global.getMatriz().setMatriz(matriz_aux);
+                            MenuPrincipal.getMatrix().addNode();
+                            MenuPrincipal.getMatrix().addEdge(Archivos.convert(aux[0],MenuPrincipal.Size()),Archivos.convert(aux[1],MenuPrincipal.Size()), Integer.parseInt(aux[2]));
+                            if (global_counter ==0) {
+                                MenuPrincipal.almacenes.add(new almacen());
+                                global_counter++;
+                            }
                             JOptionPane.showMessageDialog(null, "Ruta añadida con éxito!");
                             Input.setText("");
                         } catch (Exception e) {
                             JOptionPane.showMessageDialog(null, "Error." + "\""+aux[2]+"\"" + " no es un numero");
+                            System.out.println(Archivos.convert(aux[0], MenuPrincipal.Size()));
+                            System.out.println(Archivos.convert(aux[1], MenuPrincipal.Size()));
                             Input.setText("");
                         }
                     } else {
@@ -126,6 +144,7 @@ public class AddRoutes extends javax.swing.JFrame {
                 Input.setText("");
             }
         }
+    
     }//GEN-LAST:event_AddRouteActionPerformed
 
     private void InputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputActionPerformed
@@ -163,6 +182,7 @@ public class AddRoutes extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AddRoutes().setVisible(true);
+                
             }
         });
     }

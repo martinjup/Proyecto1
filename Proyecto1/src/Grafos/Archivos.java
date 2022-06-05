@@ -10,7 +10,10 @@ import java.util.ArrayList;
 
 public class Archivos {
     
-    //Es una funcion que devuelve Una lista generica que tendra la lista de rutas y la lista de almacenes
+    /**
+     * @param fileName El nombre del archivo a leer
+     * @return ArrayList<Object> Devuelve una lista de objetos generica que contiene la lista de almacenes y la matriz de adyacencia
+    */
  
     public ArrayList<Object> readFile(String fileName) {
         try {
@@ -90,8 +93,8 @@ public class Archivos {
             for (int i =0 ; i < raw_Routes.size() ; i++){
                 String[] div = raw_Routes.get(i).split(",");
                 //Convirtiendo las letras en numeros
-                int v1 = convert(div[0],raw_Routes);
-                int v2 = convert(div[1],raw_Routes);
+                int v1 = convert(div[0],raw_Routes.size());
+                int v2 = convert(div[1],raw_Routes.size());
 
                 Matrix.addEdge(v1, v2, Integer.parseInt(div[2]));
                 
@@ -109,11 +112,17 @@ public class Archivos {
         }
     }
 
-    public int convert(String value, ArrayList<String> almacenes) {
+    /**
+     * @param value El valor a convertir de letra a su indice
+     * @param almacenes La longitud de la lista de almacenes
+     * @return `int` Devuelve un indice segun la letra
+    */
+    
+    public static int convert(String value, int almacenes) {
         //Funcion que sirve para dada una letra A,B,C etc, devolver el numero que le corresponde
-        int aux = almacenes.size();
+        int aux = almacenes;
         String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        for (int i=0; i< aux; i++){
+        for (int i=0; i< abc.length(); i++){
             if (value.charAt(0) == abc.charAt(i)){
                 return i;
             }

@@ -2,8 +2,8 @@
 package Grafos;
 
 public class Rutas {
-
-    private int[][] adj;
+    
+    private static int[][] adj;
 
     public Rutas(int n) {
         this.adj = new int[n][n];
@@ -37,5 +37,18 @@ public class Rutas {
     }
 
 
+    public static int[][] getMatrix(){
+        return Rutas.adj;
+    }
 
+    //Cuando se agrega un nuevo almacen se incrementa la dimension de la matriz
+    public void addNode() {
+        int[][] newAdj = new int[this.adj.length + 1][this.adj.length + 1];
+        for (int i = 0; i < this.adj.length; i++) {
+            for (int j = 0; j < this.adj.length; j++) {
+                newAdj[i][j] = this.adj[i][j];
+            }
+        }
+        this.adj = newAdj;
+    }
 }

@@ -31,13 +31,23 @@ import java.awt.Color;
  * @author Windows
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-
+    
+    /**
+     * Atributos del menu principal
+    */
+    
     Function func = new Function();
     MatrizAdyacencia grafo;
     ListaAlmacenes lista_inventario;
-    Rutas matriz;
-    ArrayList<almacen> almacenes;
+    static Rutas matriz;
+    static ArrayList<almacen> almacenes;
     
+    
+    /**
+     * Constructor
+     * Establece el tamaño y nombre de la ventana
+     * Carga los datos base del proyecto desde el archivo amazon.txt
+    */
     public MenuPrincipal() {
         initComponents();
         this.setTitle("Proyecto 1");
@@ -59,17 +69,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         contenido += line+"\n";
                     }
                 }
+                //Se crea la lista de inventario de los almacenes
                 lista_inventario = func.crear_lista_inventario(contenido);
                 Global.setLista_almacenes(lista_inventario);
+                //Se crea la matriz de adyacencia que representa el grafo
                 grafo = func.crear_matriz(contenido);
                 Global.setMatriz(grafo);
-                
+                //Se instancia Archivos para leer el archivo y poder imprimirlo despues
                 Archivos fh = new Archivos();
-        
+                //Se guardan tanto la lista de almacenes como la matriz de adyacencia
                 ArrayList<Object> retorno = fh.readFile(file.getAbsolutePath());
                 ArrayList<almacen> almacenes = (ArrayList) retorno.get(0);
                 Rutas Matrix = (Rutas) retorno.get(1);
-
+                //Se asginan la matriz de adyacencia y la lista de almacenes a los atributos de la clase para poder visualizar el grafo
                 this.almacenes = almacenes;
                 this.matriz = Matrix;
                 }
@@ -241,15 +253,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No hay un grafo guardado");
         } else {
             AddStorage ventana3 = new AddStorage();
+            
         }
         
     }//GEN-LAST:event_AgregarAlmacenActionPerformed
-
+    
+    /**
+     * @param evt Evento que se dispara cuando se cierra la ventana
+    */
+    
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         ExitWindow salir = new ExitWindow();
 
     }//GEN-LAST:event_SalirActionPerformed
-
+    
+    /**
+     * @param evt Evento que se dispara cuando se oprime el boton cargar archivo
+    */
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
         JFileChooser file = new JFileChooser();
       file.setMultiSelectionEnabled(true);
@@ -274,7 +294,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
       }
         
     }//GEN-LAST:event_CargarArchivoActionPerformed
-
+    /**
+     * @param evt el evento que se dispara cuando se oprime el boton guardar
+     * @return void guarda los datos cargados desde el txt
+    */
     private void GuardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarDatosActionPerformed
         if (Global.getLista_almacenes() != null){
             try{
@@ -319,25 +342,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_Gestional_AlmacenActionPerformed
-
+    /**
+    * @Param evt es el evento cuando se le da click al boton mostrar grafo
+    * @return Void, Genera un frame en donde se visualiza el grafo
+    */
     private void MostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarGrafoActionPerformed
         if(Global.getMatriz() != null){
             Mostrar.setText(Global.getMatriz().ImprimirGrafo());
             JFrame frame = new JFrame("Grafo");
             ArrayList<node> nodos = new ArrayList<>();
             ArrayList<Color> colores = new ArrayList<>();
-
+            //Genera colores al azar para pintar los vertices del grafo
             for(int i = 0; i < almacenes.size(); i++){
                 colores.add(new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
             }
 
-
-
+            //Genera los vertices asignandoles su color y nombre
             for(int i=0; i<almacenes.size();i++){
                 node vertex = new node();
-                //Se distrbuyen los vertices con la funcion seno, la cantidad de almacenes e i
+                //Se distrbuyen los vertices con la funcion seno y coseno para que esten distribuidos en un circulo, la cantidad de almacenes e i
                 String aux = Character.toString(vertex.convert(i));
-                
                 vertex.setValues( (int) (250+ 200*(Math.cos((2*Math.PI/almacenes.size())*i) )),(int) (250+ 200*(Math.sin((2*Math.PI/almacenes.size())*i))), 50, colores.get(i),aux);
                 nodos.add(vertex);
                 
@@ -345,14 +369,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
             frame.setVisible(true);
             frame.setSize(500,500);
             
-            graph g = new graph(nodos,this.matriz);
+            graph g = new graph(nodos,matriz);
 
             frame.add(g);
         } else {
             JOptionPane.showMessageDialog(null, "No hay un grafo guardado");
         }
     }//GEN-LAST:event_MostrarGrafoActionPerformed
-
+    
+    /**
+     * @return Rutas (Matriz de adyacencia del grafo)
+    */
+    
+    public static Rutas getMatrix(){
+        return MenuPrincipal.matriz;
+    }
+    
+    /**
+     * @return `int` devuelve el tamaño de la lista de almacenes
+    */
+    public static int Size(){
+        return MenuPrincipal.almacenes.size();
+    }
     /**
      * @param args the command line arguments
      */
