@@ -271,6 +271,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * @param evt Evento que se dispara cuando se oprime el boton cargar archivo
     */
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
+        
+        //metodo encargado de cargar el archivo a trabajar mediante la clase JFileChooser
+        
         JFileChooser file = new JFileChooser();
       file.setMultiSelectionEnabled(true);
       file.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

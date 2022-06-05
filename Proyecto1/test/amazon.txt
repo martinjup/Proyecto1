@@ -15,7 +15,7 @@ Almacen E:
 Microfono,7
 Audifonos,10;
 Rutas;
-A,B,10
+A,B,20
 A,C,20
 B,C,5
 B,D,8
